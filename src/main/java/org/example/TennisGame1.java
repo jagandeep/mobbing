@@ -21,7 +21,23 @@ public class TennisGame1 {
 
     public String getScore() {
         String score ;
-        if (player1Points == player2Points) {
+        if (isTied()) return sayTiedScore();
+        if (player1Points >= 4 || player2Points >= 4) {
+            int minusResult = player1Points - player2Points;
+            if (minusResult == 1) score = "Advantage player1";
+            else if (minusResult == -1) score = "Advantage player2";
+            else if (minusResult >= 2) score = "Win for player1";
+            else score = "Win for player2";
+            return score;
+        }
+        return nameScore(player1Points)+"-"+nameScore(player2Points);
+    }
+    private boolean isTied() {
+        return player1Points == player2Points;
+    }
+
+    private String sayTiedScore() {
+        String score;
             switch (player1Points) {
                 case 0:
                     score = "Love-All";
@@ -41,16 +57,6 @@ public class TennisGame1 {
 
             }
             return score;
-        }
-        if (player1Points >= 4 || player2Points >= 4) {
-            int minusResult = player1Points - player2Points;
-            if (minusResult == 1) score = "Advantage player1";
-            else if (minusResult == -1) score = "Advantage player2";
-            else if (minusResult >= 2) score = "Win for player1";
-            else score = "Win for player2";
-            return score;
-        }
-        return nameScore(player1Points)+"-"+nameScore(player2Points);
     }
 
     private String nameScore( int tempScore) {
